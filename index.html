@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.16">
-<title>Team pensjonsbrev</title>
+<title>Bakgrunn</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -439,14 +439,28 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_bakgrunn">Bakgrunn</a></li>
+<li><a href="#_beslutninger">Beslutninger</a>
+<ul class="sectlevel2">
+<li><a href="#_utvikle_brev_løsningen_selv">Utvikle brev-løsningen selv</a></li>
+<li><a href="#_logisk_skille_mellom_brevvisning_og_brevinnhold">Logisk skille mellom brevvisning og brevinnhold</a></li>
+<li><a href="#_valg_av_pdf_rendring_verktøy">Valg av pdf rendring verktøy</a></li>
+</ul>
+</li>
+<li><a href="#_antatt_fremtidig_arkitektur_for_brev">Antatt fremtidig arkitektur for brev</a></li>
+<li><a href="#_tjenester">Tjenester</a></li>
+<li><a href="#_brevbaker_og_pdfbygger">Brevbaker og pdfbygger</a>
+<ul class="sectlevel1">
+<li><a href="#_prosess_brukstilfelle">Prosess / Brukstilfelle</a></li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="_team_pensjonsbrev">Team pensjonsbrev</h2>
-<div class="sectionbody">
-
-</div>
-</div>
 <div class="sect1">
 <h2 id="_bakgrunn">Bakgrunn</h2>
 <div class="sectionbody">
@@ -517,7 +531,7 @@ HP Extreme bruker hovedsakelig ESB(Enterprise Service Bus) som har en rekke prob
 <h2 id="_beslutninger">Beslutninger</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_utvikle_brev_løsningen_selv">Utvikle brev-løsningen selv:</h3>
+<h3 id="_utvikle_brev_løsningen_selv">Utvikle brev-løsningen selv</h3>
 <div class="paragraph">
 <p>Det ble vurdert å ta i bruk hyllevare(OpenText Extream), men da antar vi at vi vil støte på tidligere problemstillinger med MetaForce. OpenText Extream er hyllevare som vi ikke kan tilpasse selv, og vi låser brev-malene inn i ett eksternt CCM verktøy slik som før. Dersom OpenText Extream ikke vedlikeholdes er vi tilbake til samme tilstand som i dag.</p>
 </div>
@@ -530,7 +544,7 @@ Vi ønsker at løsningen skal vare så lenge som mulig. Ved å lage en egen løs
 </div>
 </div>
 <div class="sect2">
-<h3 id="_logisk_skille_mellom_brevvisning_og_brevinnhold">Logisk skille mellom brevvisning og brevinnhold:</h3>
+<h3 id="_logisk_skille_mellom_brevvisning_og_brevinnhold">Logisk skille mellom brevvisning og brevinnhold</h3>
 <div class="paragraph">
 <p>Selv om vi skriver våres egen løsning må vi ha avhengigheter til eksterne verktøy for å produsere PDF dokumenter.</p>
 </div>
@@ -546,7 +560,7 @@ Om vi f.eks ønsker å produsere html brev eller noe annet kan vi bare lage ett 
 </div>
 </div>
 <div class="sect2">
-<h3 id="_valg_av_pdf_rendring_verktøy">Valg av pdf rendring verktøy:</h3>
+<h3 id="_valg_av_pdf_rendring_verktøy">Valg av pdf rendring verktøy</h3>
 <div class="paragraph">
 <p>Ettersom vi har valgt å ha ett logisk skille mellom brevvisning og brevinnhold(se over), så vil vi ikke bli låst til verktøyet vi bruker. LaTeX ble valgt ettersom utviklerne hadde erfaring med LaTeX fra før via skolegangen. LaTeX er ett verktøy for å produsere godt formatterte bøker, forskningsartikler, CV og mye annet. LaTeX er gratis og basert på åpen kildekode med mange støtte-biblioteker, mye brukt og inneholder mye ekstra-funksjonalitet ettersom det har eksistert lenge(litt på samme måte som Linux). Vi antar også at vi ikke kommer til å måtte bytte ut LaTeX om kort tid ettersom det har eksistert lenge og brukes av omtrent alle universitet og høgskoler. Det å bytte verktøy er antatt å ta en utvikler ett par uker, så relativt lav kostnad.</p>
 </div>
@@ -594,7 +608,7 @@ Verken PDF dokumentet eller informasjonen som brukes til å generere dokumentet 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-10-29 14:06:07 UTC
+Last updated 2021-10-29 14:11:03 UTC
 </div>
 </div>
 </body>
