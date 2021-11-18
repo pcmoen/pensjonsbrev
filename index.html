@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.16">
-<title>Bakgrunn</title>
+<title>Arkitektur</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -442,19 +442,24 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_bakgrunn">Bakgrunn</a></li>
-<li><a href="#_beslutninger">Beslutninger</a>
+<li><a href="#_arkitektur">Arkitektur</a>
 <ul class="sectlevel2">
-<li><a href="#_utvikle_brev_løsningen_selv">Utvikle brev-løsningen selv</a></li>
-<li><a href="#_logisk_skille_mellom_brevvisning_og_brevinnhold">Logisk skille mellom brevvisning og brevinnhold</a></li>
-<li><a href="#_valg_av_pdf_rendring_verktøy">Valg av pdf rendring verktøy</a></li>
+<li><a href="#_bakgrunn">Bakgrunn</a></li>
+<li><a href="#_beslutninger">Beslutninger</a></li>
+<li><a href="#_dagens_arkitektur_for_bestilling_av_automatiske_brev">Dagens arkitektur for bestilling av automatiske brev</a></li>
+<li><a href="#_antatt_fremtidig_arkitektur_for_løsningen">Antatt fremtidig arkitektur for løsningen</a></li>
 </ul>
 </li>
-<li><a href="#_antatt_fremtidig_arkitektur_for_brev">Antatt fremtidig arkitektur for brev</a></li>
-<li><a href="#_tjenester">Tjenester</a></li>
-<li><a href="#_brevbaker_og_pdfbygger">Brevbaker og pdfbygger</a>
+<li><a href="#_løsningsbeskrivelse_av_brevbaker_og_pdfbygger">Løsningsbeskrivelse av Brevbaker og pdfbygger</a>
 <ul class="sectlevel1">
-<li><a href="#_prosess_brukstilfelle">Prosess / Brukstilfelle</a></li>
+<li><a href="#_prosess_brukstilfelle">Prosess / Brukstilfelle</a>
+<ul class="sectlevel2">
+<li><a href="#_1_besillersystemet_fyller_ut_en_letterrequest_med_informasjon_som_skrives_i_brevet">1. Besillersystemet fyller ut en LetterRequest med informasjon som skrives i brevet.</a></li>
+<li><a href="#_2_brevbakeren_bruker_input_data_sammen_med_malen_for_å_bestemme_innholdet_i_brevet">2. Brevbakeren bruker input data sammen med malen for å bestemme innholdet i brevet</a></li>
+<li><a href="#_3_pdf_byggeren_bygger_pdf_fra_inngående_filer">3. PDF-byggeren bygger pdf fra inngående filer</a></li>
+<li><a href="#_4_brevbaker_svarer_med_brev_metadata_og_pdf">4. Brevbaker svarer med brev-metadata og pdf</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -462,8 +467,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_bakgrunn">Bakgrunn</h2>
+<h2 id="_arkitektur">Arkitektur</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_bakgrunn">Bakgrunn</h3>
 <div class="paragraph">
 <p>Dagens brevløsning består av to systemer: Metaforce/doksys stack og HP Extreme brev.
 HP Extreme bruker hovedsakelig ESB(Enterprise Service Bus) som har en rekke problemer:</p>
@@ -523,15 +530,13 @@ HP Extreme bruker hovedsakelig ESB(Enterprise Service Bus) som har en rekke prob
 </ul>
 </div>
 <div class="paragraph">
-<p>Se også: <a href="https://confluence.adeo.no/pages/viewpage.action?pageId=387091206">Oversikt - Faglige problemstillinger</a></p>
+<p>Se også: <a href="https://confluence.adeo.no/pages/viewpage.action?pageId=387091206">Oversikt - Faglige problemstillinger</a> (krever innlogging)</p>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_beslutninger">Beslutninger</h2>
-<div class="sectionbody">
 <div class="sect2">
-<h3 id="_utvikle_brev_løsningen_selv">Utvikle brev-løsningen selv</h3>
+<h3 id="_beslutninger">Beslutninger</h3>
+<div class="sect3">
+<h4 id="_utvikle_brev_løsningen_selv">Utvikle brev-løsningen selv</h4>
 <div class="paragraph">
 <p>Det ble vurdert å ta i bruk hyllevare(OpenText Extream), men da antar vi at vi vil støte på tidligere problemstillinger med MetaForce. OpenText Extream er hyllevare som vi ikke kan tilpasse selv, og vi låser brev-malene inn i ett eksternt CCM verktøy slik som før. Dersom OpenText Extream ikke vedlikeholdes er vi tilbake til samme tilstand som i dag.</p>
 </div>
@@ -543,8 +548,8 @@ HP Extreme bruker hovedsakelig ESB(Enterprise Service Bus) som har en rekke prob
 Vi ønsker at løsningen skal vare så lenge som mulig. Ved å lage en egen løsning vil vi kunne forvalte den så lenge NAV har utviklerkapasitet.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_logisk_skille_mellom_brevvisning_og_brevinnhold">Logisk skille mellom brevvisning og brevinnhold</h3>
+<div class="sect3">
+<h4 id="_logisk_skille_mellom_bestemmelse_av_innhold_og_rendring_av_brev">Logisk skille mellom bestemmelse av innhold og rendring av brev</h4>
 <div class="paragraph">
 <p>Selv om vi skriver våres egen løsning må vi ha avhengigheter til eksterne verktøy for å produsere PDF dokumenter.</p>
 </div>
@@ -559,31 +564,32 @@ Vi ønsker at løsningen skal vare så lenge som mulig. Ved å lage en egen løs
 Om vi f.eks ønsker å produsere html brev eller noe annet kan vi bare lage ett nytt visnings-lag uten å endre på koden som produserer innholdet i brevet.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_valg_av_pdf_rendring_verktøy">Valg av pdf rendring verktøy</h3>
+<div class="sect3">
+<h4 id="_valg_av_pdf_rendring_verktøy">Valg av pdf rendring verktøy</h4>
 <div class="paragraph">
 <p>Ettersom vi har valgt å ha ett logisk skille mellom brevvisning og brevinnhold(se over), så vil vi ikke bli låst til verktøyet vi bruker. LaTeX ble valgt ettersom utviklerne hadde erfaring med LaTeX fra før via skolegangen. LaTeX er ett verktøy for å produsere godt formatterte bøker, forskningsartikler, CV og mye annet. LaTeX er gratis og basert på åpen kildekode med mange støtte-biblioteker, mye brukt og inneholder mye ekstra-funksjonalitet ettersom det har eksistert lenge(litt på samme måte som Linux). Vi antar også at vi ikke kommer til å måtte bytte ut LaTeX om kort tid ettersom det har eksistert lenge og brukes av omtrent alle universitet og høgskoler. Det å bytte verktøy er antatt å ta en utvikler ett par uker, så relativt lav kostnad.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_antatt_fremtidig_arkitektur_for_brev">Antatt fremtidig arkitektur for brev</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_dagens_arkitektur_for_bestilling_av_automatiske_brev">Dagens arkitektur for bestilling av automatiske brev</h3>
 <div class="imageblock">
 <div class="content">
-<img src="img/overordnet-arkitektur.svg" alt="overordnet arkitektur" width="590" height="497">
+<img src="img/dagens-arkitektur.svg" alt="dagens arkitektur" width="395" height="279">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_antatt_fremtidig_arkitektur_for_løsningen">Antatt fremtidig arkitektur for løsningen</h3>
+<div class="imageblock">
+<div class="content">
+<img src="img/planlagt-arkitektur.svg" alt="planlagt arkitektur" width="590" height="497">
 </div>
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_tjenester">Tjenester</h2>
-<div class="sectionbody">
-
 </div>
-</div>
-<h1 id="_brevbaker_og_pdfbygger" class="sect0">Brevbaker og pdfbygger</h1>
+<h1 id="_løsningsbeskrivelse_av_brevbaker_og_pdfbygger" class="sect0">Løsningsbeskrivelse av Brevbaker og pdfbygger</h1>
 <div class="paragraph">
 <p>Brevbaker er en mikrotjeneste uten state som tar inn informasjon som kreves for ett brev (navn, adresse, saksnummer osv)
 , og gir tilbake en PDF via REST grensesnitt. Brevbakeren bestemmer selve tekstlige innholdet i ett brev basert på brevbestillingen.</p>
@@ -598,9 +604,136 @@ Verken PDF dokumentet eller informasjonen som brukes til å generere dokumentet 
 <div class="sect1">
 <h2 id="_prosess_brukstilfelle">Prosess / Brukstilfelle</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Overordnet vil en bestilling gå slik:</p>
+</div>
 <div class="imageblock">
 <div class="content">
-<img src="img/sekvens-diagram.svg" alt="sekvens diagram" width="515" height="220">
+<img src="img/sekvens-diagram.svg" alt="sekvens diagram" width="510" height="220">
+</div>
+</div>
+<div class="sect2">
+<h3 id="_1_besillersystemet_fyller_ut_en_letterrequest_med_informasjon_som_skrives_i_brevet">1. Besillersystemet fyller ut en LetterRequest med informasjon som skrives i brevet.</h3>
+<div class="paragraph">
+<p>(modell kan være utdatert)</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="img/datagrunnlag-letterrequest.svg" alt="datagrunnlag letterrequest" width="734" height="649">
+</div>
+</div>
+<div class="paragraph">
+<p>Felles-feltet inneholder data som kreves for bestilling av alle brev. Feltene der det står "? = null" er valgfrie.
+letterData feltet inneholder ulik datastruktur avhengig av hvilket brev som bestilles.
+For eksempel ved bestilling av brevet "Egenerklæring godskriving omsorgspoeng" krever at letterData er inneholder malens unike grunnlag som ser slik ut:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="img/brevDtoEksempel.svg" alt="brevDtoEksempel" width="264" height="253">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_2_brevbakeren_bruker_input_data_sammen_med_malen_for_å_bestemme_innholdet_i_brevet">2. Brevbakeren bruker input data sammen med malen for å bestemme innholdet i brevet</h3>
+<div class="paragraph">
+<p>For å bestemme det tekstlige innholdet og elementer i brevet kombinerer vi malen med dataene. Malen er definert ved hjelp av kotlin DSL.
+Malen kan se for eksempel slik ut:</p>
+</div>
+<details>
+<summary class="title">Eksempel</summary>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">object EksempelBrev : StaticTemplate {
+    override val template = createTemplate(
+        //ID på brevet
+        name = "EKSEMPEL_BREV",
+
+        //Master-mal for brevet.
+        base = PensjonLatex,
+
+        // Unik datagrunnlag/DTO for brevet
+        letterDataType = EksempelBrevDto::class,
+
+        // Hvilke språk brevet støtter
+        lang = languages(Language.Bokmal),
+
+        // Hovedtittel inne i brevet
+        title = newText(Language.Bokmal to "Eksempelbrev"),
+
+        // Metadata knyttet til en brevmal som ikke påvirker innholdet
+        letterMetadata = LetterMetadata(
+
+            // Visningstittel for ulike systemer.
+            // F.eks saksbehandling brev oversikt, brukerens brev oversikt osv
+            displayTitle = "Dette er ett eksempel-brev",
+
+            // Krever brevet bankid/ nivå 4 pålogging for å vises
+            isSensitiv = false,
+        )
+    ) {
+        // Tekst-innholdet i malen
+        outline {
+
+            // Undertittel
+            title1 {
+
+                // Tekst
+                text(Language.Bokmal to "Du har fått innvilget pensjon")
+            }
+
+            // Inkluder data fra datagrunnlaget til malen inn i brevet som tekst
+            eval { argument().select(EksempelBrevDto::pensjonInnvilget).str() }
+
+            // Inkludering av eksisterende frase/mini-mal for gjenbruk av elementer
+            includePhrase(
+                argument().select(EksempelBrevDto::pensjonInnvilget)
+                    .map { TestFraseDto(it.toString()) },
+                TestFrase
+            )
+        }
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</details>
+<div class="paragraph">
+<p>Ved bruk av PensjonLatex master-malen vil det genereres en rekke filer som sendes til pdf-byggeren:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>params.tex</code> inkluderer alle felles-elementer som kreves i master-malen.</p>
+</li>
+<li>
+<p><code>letter.xmpdata</code> inneholder metadata for pdf-dokumentet</p>
+</li>
+<li>
+<p><code>letter.tex</code> inneholder hoveddelen av brevet med tekst og data fra brevmalen</p>
+</li>
+<li>
+<p><code>nav-logo.pdf</code> logo for master-malen</p>
+</li>
+<li>
+<p><code>nav-logo.pdf_tex</code> tex kode for å bruke nav logoen</p>
+</li>
+<li>
+<p><code>pensjonsbrev_v2.cls</code> fil som beskriver plassering av innhold og utforming av brevet. Fungerer noe likt css.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_3_pdf_byggeren_bygger_pdf_fra_inngående_filer">3. PDF-byggeren bygger pdf fra inngående filer</h3>
+<div class="paragraph">
+<p>Pdf-byggeren kjører XeTeX på letter.tex filen og returnerer resulterende PDF til brevbakeren.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_4_brevbaker_svarer_med_brev_metadata_og_pdf">4. Brevbaker svarer med brev-metadata og pdf</h3>
+<div class="paragraph">
+<p>Brevbakeren svarer bestillende system med PDF og metadata som hører til brevmalen som produserte brevet definert i LetterMetadata.</p>
 </div>
 </div>
 </div>
@@ -608,7 +741,7 @@ Verken PDF dokumentet eller informasjonen som brukes til å generere dokumentet 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-11-08 11:28:13 UTC
+Last updated 2021-11-18 11:29:25 UTC
 </div>
 </div>
 </body>
