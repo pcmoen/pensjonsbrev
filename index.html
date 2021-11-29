@@ -460,6 +460,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_4_brevbaker_svarer_med_brev_metadata_og_pdf">4. Brevbaker svarer med brev-metadata og pdf</a></li>
 </ul>
 </li>
+<li><a href="#_teknologivalg">Teknologivalg</a>
+<ul class="sectlevel2">
+<li><a href="#_github_actions">Github actions</a></li>
+<li><a href="#_ktor">Ktor</a></li>
+<li><a href="#_asciidoc">Asciidoc</a></li>
+<li><a href="#_latex">LaTeX</a></li>
+<li><a href="#_kotlin">Kotlin</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -738,10 +747,74 @@ Malen kan se for eksempel slik ut:</p>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_teknologivalg">Teknologivalg</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_github_actions">Github actions</h3>
+<div class="paragraph">
+<p>For CI/CD pipeline (kontinuerlig leveranse/integrasjon) har vi valgt github actions siden det er ett bra verktøy som mange på huset bruker.
+NAIS-plattformen har også tilrettelagt for at vi lett skal kunne bruke github actions for å deploye applikasjoner til ulike miljø.</p>
+</div>
+<div class="paragraph">
+<p>Vi bruker Github actions for å automatisere en rekke oppgaver:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Bygge applikasjoner og container images.</p>
+</li>
+<li>
+<p>Unit testing, integrasjonstester og ende til ende tester.</p>
+</li>
+<li>
+<p>Deploye til produksjon ved push til master.</p>
+</li>
+<li>
+<p>Deploye til development ved manuell trigging av action mot branch.</p>
+</li>
+<li>
+<p>Bygge asciidoc til html og deploye automatisk til github pages ved endringer i dokumentasjonen.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ktor">Ktor</h3>
+<div class="paragraph">
+<p>Ktor er ett moderne og lettvektet rammeverk for å lage http tjenester som fungerer godt sammen med Kotlin.
+Vi valgte Ktor ettersom vi ønsket å bruke Kotlin og ikke har behov for tyngre rammeverk som f.eks Spring.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_asciidoc">Asciidoc</h3>
+<div class="paragraph">
+<p>Asciidoc er brukt mye i NAV og gir oss muligheten til å legge dokumentasjon nær koden. Dette gjør det lettere å legge ut endringer sammen med dokumentasjon.
+Asciidoc kan også kompileres til HTML på github pages som også gjøres mange andre steder i NAV.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_latex">LaTeX</h3>
+<div class="paragraph">
+<p>Vi  har valgt LaTeX for å produsere brev/pdf-dokumenter.
+LaTeX er ett typesettingssystem for produksjon av dokumenter. LaTeX er vel-etablert, Open-source, gratis og forbedret over lang tid(lansert i 1980).
+Ettersom LaTeX brukes av de fleste akademiske institusjoner kan man også anta at de fleste utviklere har noe erfaring med eller kjennskap til LaTeX.
+Det er viktig å understreke at vi ikke har sterke knytninger til valget av LaTeX. Vi bruker kun LaTeX for å bestemme hvordan innholdet til ett brev presenteres/vises i en pdf, ikke for å bestemme det tekstlige innholdet.
+Dette gjør det mulig å bytte ut LaTeX med andre representasjoner av det tekstlige innholdet i brevet med f.eks HTML.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_kotlin">Kotlin</h3>
+<div class="paragraph">
+<p>Kotlin er ett moderne kodespråk basert på Java som kjører i JVM. Vi bruker Kotlin ettersom det er god støtte og erfaring med Kotlin i NAV. Vi på teamet har også god erfaring med Kotlin.</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-11-25 14:20:56 UTC
+Last updated 2021-11-29 15:00:45 UTC
 </div>
 </div>
 </body>
